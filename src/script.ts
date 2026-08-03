@@ -4,6 +4,9 @@ const btnClear = document.getElementById("clear") as HTMLElement;
 const operators = document.querySelectorAll(".operator") as NodeListOf<HTMLElement>;
 const equalOperator = document.getElementById("equals");
 
+let factor1: string | null = null;
+let operator: string;
+let factor2: string | null = null;
 
 numbers.forEach(function(element) {
     const number = element.textContent ?? "";
@@ -24,4 +27,14 @@ btnClear.addEventListener("click", () => {
     firstFactor.textContent = "0";
 });
 
+function calculate(element1: number, operator: string, element2: number) {
+    switch (operator) {
+        case "+": return element1 + element2;
+        case "-": return element1 - element2;
+        case "X": return element1 * element2;
+        case "/": return element1 / element2;
+        default:
+            return element2;
+    }
+}
 
