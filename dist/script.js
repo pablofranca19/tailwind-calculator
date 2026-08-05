@@ -22,16 +22,14 @@ numbers.forEach(function (number) {
 });
 operators.forEach(function (operator) {
     operator.addEventListener("click", () => {
-        if (factor1 === null) {
-            factor1 = firstFactor.textContent;
-        }
-        else if (factor1 !== null || (firstFactor.textContent !== operatorStr && isOperatorPressed === true)) {
-            factor2 = firstFactor.textContent;
-        } /*
-        if (operatorStr !== "") {
-            return firstFactor.textContent = String(calculate(Number(factor1), operatorStr, Number(factor2)));
-        }
-        */
+        factor2 = null;
+        factor1 = firstFactor.textContent;
+        operatorStr = "";
+        /*
+ if (operatorStr !== "") {
+     return firstFactor.textContent = String(calculate(Number(factor1), operatorStr, Number(factor2)));
+ }
+ */
         firstFactor.textContent = operator.textContent;
         operatorStr = firstFactor.textContent;
         isOperatorPressed = true;
@@ -47,14 +45,20 @@ btnClear.addEventListener("click", () => {
 });
 const regex = new RegExp(/[0-9]/g);
 equalOperator.addEventListener("click", () => {
-    factor2 = firstFactor.textContent;
+    if (factor1 !== null) {
+        factor2 = firstFactor.textContent;
+    }
+    console.log(factor1, operatorStr, factor2);
+    console.log("Fator 1: " + factor1);
+    console.log("Fator 2: " + factor2);
     firstFactor.textContent = String(calculate(Number(factor1), operatorStr, Number(factor2)));
     if (!regex.test(firstFactor.textContent)) {
         firstFactor.textContent = "Error";
+        return;
     }
     pressFlag = true;
     operatorStr = "";
-    factor1 = null;
+    factor1 = firstFactor.textContent;
     factor2 = null;
 });
 function calculate(element1, operator, element2) {
