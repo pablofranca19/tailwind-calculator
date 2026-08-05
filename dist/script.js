@@ -11,15 +11,31 @@ let pressFlag;
 let isOperatorPressed;
 numbers.forEach(function (number) {
     number.addEventListener("click", () => {
-        firstFactor.textContent === "0" || (pressFlag == true && firstFactor.textContent == operatorStr) ? firstFactor.textContent = number.textContent : firstFactor.textContent += number.textContent;
+        if (firstFactor.textContent === "0" || firstFactor.textContent === operatorStr || pressFlag === true) {
+            firstFactor.textContent = number.textContent;
+            pressFlag = false;
+        }
+        else {
+            firstFactor.textContent += number.textContent;
+        }
     });
 });
 operators.forEach(function (operator) {
     operator.addEventListener("click", () => {
-        factor1 = firstFactor.textContent;
+        if (factor1 === null) {
+            factor1 = firstFactor.textContent;
+        }
+        else if (factor1 !== null && isOperatorPressed === true) {
+            factor2 = firstFactor.textContent;
+        }
+        console.log(factor1, factor2);
+        /*
+        if (operatorStr !== "") {
+            return firstFactor.textContent = String(calculate(Number(factor1), operatorStr, Number(factor2)));
+        }
+        */
         firstFactor.textContent = operator.textContent;
         operatorStr = firstFactor.textContent;
-        pressFlag = true;
         isOperatorPressed = true;
     });
 });
@@ -27,15 +43,14 @@ btnClear.addEventListener("click", () => {
     firstFactor.textContent = "0";
     operatorStr = "";
     factor1 = null;
-    factor2 = null;
     pressFlag = false;
     isOperatorPressed = false;
 });
-factor2 = "10";
 equalOperator.addEventListener("click", () => {
     console.log(factor1, operatorStr, factor2);
     console.log(calculate(Number(factor1), operatorStr, Number(factor2)));
     firstFactor.textContent = String(calculate(Number(factor1), operatorStr, Number(factor2)));
+    pressFlag = true;
 });
 function calculate(element1, operator, element2) {
     switch (operator) {
