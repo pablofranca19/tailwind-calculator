@@ -25,10 +25,11 @@ operators.forEach(function(operator) {
     operator.addEventListener("click", () => {
         if (factor1 === null) {
             factor1 = firstFactor.textContent;
-        } else if (factor1 !== null && isOperatorPressed === true) {
+        } else if (factor1 !== null || (firstFactor.textContent !== operatorStr && isOperatorPressed === true)) {
+            console.log(firstFactor.textContent);
             factor2 = firstFactor.textContent;
         }
-        console.log(factor1, factor2);
+        console.log(factor1, operatorStr,factor2);
         /*
         if (operatorStr !== "") {
             return firstFactor.textContent = String(calculate(Number(factor1), operatorStr, Number(factor2)));
@@ -37,6 +38,7 @@ operators.forEach(function(operator) {
         firstFactor.textContent = operator.textContent;
         operatorStr = firstFactor.textContent;
         isOperatorPressed = true;
+        console.log(factor1, operatorStr,factor2);
     });
 });
 
@@ -45,15 +47,20 @@ btnClear.addEventListener("click", () => {
     firstFactor.textContent = "0";
     operatorStr = "";
     factor1 = null;
+    factor2 = null;
     pressFlag = false;
     isOperatorPressed = false;
 });
 
 equalOperator.addEventListener("click", () => {
+    factor2 = firstFactor.textContent;
     console.log(factor1, operatorStr, factor2);
     console.log(calculate(Number(factor1), operatorStr, Number(factor2)));
     firstFactor.textContent = String(calculate(Number(factor1), operatorStr, Number(factor2)));
     pressFlag = true;
+    operatorStr = "";
+    factor1 = null;
+    factor2 = null;
 });
 
 function calculate(element1: number, operator: string, element2: number): number {
